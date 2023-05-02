@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom/client';
-import App from "./App/App";
+import Home from "./scenes/home/Home";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <App />
+    <Home />
 );
 
 

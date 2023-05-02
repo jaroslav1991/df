@@ -1,33 +1,39 @@
-import {useEffect, useState} from "react";
-import GetWords from "../buttons/GetWords";
+import {useState} from "react";
+import Modal from "./components/Modal";
+import {getWords} from "../../shared/api/api";
 
 
-const Body = (props) => {
-    let [words, setWords] = useState(false)
+const Body = ({token}) => {
+    const [words, setWords] = useState([])
+    const [word, setWord] = useState(null)
 
-    const handleGetWords = () => {
-        setWords(true)
+
+    const handleGetWords = async () => {
+        const response = await getWords();
+        if (response.status === 'success') {
+            setWords(response.data.words)
+        }
     }
 
-    useEffect(() => {
-        props.setTkn(localStorage.getItem("token"))
-    })
-
-    if (props.tkn) {
-        return (
-            <main>
+    return (
+        <main>
+            {token && <>
                 <h2>Success register!</h2>
-                <button onClick={handleGetWords}>GetAllWords</button>
-                {words === true && <GetWords/>}
-            </main>
-        );
-    } else if (!props.tkn) {
-        return (
-            <main>
-            <h2>Lox, quickly register on this ass site</h2>
-            </main>
-        );
-    }
+                <button onClick={handleGetWords}>Get All Words</button>
+                {words.length > 0 && (
+                    <ul>
+                        {words.map(word => (
+                            <li key={word.id}>
+                                <button onClick={() => setWord(word)}>{word.word} - {word.translate}</button>
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {word && <Modal onClose={() => setWord(null)} onRefreshList={handleGetWords} word={word}/>}
+            </>}
+            {!token && <h2>Lox, quickly register on this ass site</h2>}
+        </main>
+    )
 }
 
 export default Body;
