@@ -10,8 +10,6 @@ const processFetch = async (request) => {
             data: await response.json()
         }
     } catch (error) {
-        console.log("error")
-        console.error(error);
         return {
             status: 'error',
             data: error
@@ -69,4 +67,17 @@ export const fetchSignIn = async (data) => {
     });
     return await processFetch(request)
 };
+
+export const createWord = async (data) => {
+    const token = getCookieValue("token")
+    const _data = {
+        ...data,
+        token
+    }
+    const request = fetch(`${apiBase}/word`, {
+        method: "POST",
+        body: JSON.stringify(_data)
+    });
+    return await processFetch(request)
+}
 

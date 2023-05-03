@@ -1,11 +1,9 @@
 import {useEffect, useRef} from "react";
 import {deleteWord, updateWord} from "../../../shared/api/api";
 
-const Modal = ({word, onClose, onRefreshList}) => {
-  console.log(word)
+const ModalUpdateOrDelete = ({word, onClose, onRefreshList}) => {
   const wordRef = useRef();
   const translateRef = useRef();
-
 
   const onUpdate = async () => {
     const data = {
@@ -43,4 +41,4 @@ const Modal = ({word, onClose, onRefreshList}) => {
   );
 }
 
-export default Modal;
+export default ModalUpdateOrDelete;
