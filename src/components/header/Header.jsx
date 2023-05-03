@@ -21,7 +21,7 @@ const Header = ({setToken, onLogout, token}) => {
         <header>
             <h1>Башка</h1>
             <div className={"header_panel"}>
-                <button>Home</button>
+                {token && <button>Home</button>}
                 {token && <button onClick={onLogout}>Logout</button>}
                 {!token && <button onClick={openSignUpForm}>SignUp</button>}
                 {!token && <button onClick={openSignInForm}>SignIn</button>}
