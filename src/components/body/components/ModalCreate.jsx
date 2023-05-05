@@ -1,5 +1,5 @@
 import {useRef} from "react";
-import {createWord} from "../../../shared/api/api";
+import {createWord} from "../../../shared/api/word";
 
 const ModalCreateFn = ({onClose, onRefreshList}) => {
     const wordRef = useRef()
@@ -11,6 +11,7 @@ const ModalCreateFn = ({onClose, onRefreshList}) => {
             translate: translateRef.current.value
         }
         const response = await createWord(data);
+        console.log(response.data)
         onRefreshList();
         onClose();
     }
@@ -18,7 +19,9 @@ const ModalCreateFn = ({onClose, onRefreshList}) => {
     return (
         <div className="modal">
             <div className="modal_content" onClick={(e) => e.stopPropagation()}>
+                <label>Word</label>
                 <input ref={wordRef} />
+                <label>Translate</label>
                 <input ref={translateRef} />
                 <button onClick={onCreate}>Add</button>
                 <button onClick={onClose}>Close</button>

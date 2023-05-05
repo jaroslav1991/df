@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {fetchSignUp} from "../../../shared/api/api";
+import {fetchSignUp} from "../../../shared/api/auth";
 
 function SignUp({onClose}) {
     const emailRef = useRef()
