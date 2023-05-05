@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {fetchSignIn} from "../../../shared/api/api";
+import {fetchSignIn} from "../../../shared/api/auth";
 
 function SignIn({onClose, setToken}) {
     const emailRef = useRef()
