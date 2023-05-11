@@ -1,6 +1,7 @@
 import {useState} from "react";
 import SignInForm from "./components/SignInForm";
 import SignUpForm from "./components/SignUpForm";
+import "./styles/header.css"
 
 const Header = ({setToken, onLogout, token}) => {
     const [openForm, setOpenForm] = useState("");
@@ -19,12 +20,12 @@ const Header = ({setToken, onLogout, token}) => {
 
     return (
         <header>
-            <h1>Башка</h1>
             <div className={"header_panel"}>
-                {token && <button>Home</button>}
-                {token && <button onClick={onLogout}>Logout</button>}
-                {!token && <button onClick={openSignUpForm}>SignUp</button>}
-                {!token && <button onClick={openSignInForm}>SignIn</button>}
+                <div className="button_header">
+                    {token && <button className="btn_auth" onClick={onLogout}>Logout</button>}
+                    {!token && <button className="btn_auth" onClick={openSignUpForm}>SignUp</button>}
+                    {!token && <button className="btn_auth" onClick={openSignInForm}>SignIn</button>}
+                </div>
             </div>
             {openForm === "signUp" && <SignUpForm onClose={onClose} />}
             {openForm === "signIn" && <SignInForm onClose={onClose} setToken={setToken}/>}

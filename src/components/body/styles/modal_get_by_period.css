@@ -1,0 +1,55 @@
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(175, 174, 174, 0.7);
+    z-index: 1;
+}
+
+.modal_content {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(126 125 125 / 70%);
+    padding: 20px;
+    border-radius: 5px;
+    width: 400px;
+    max-width: 90%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.calendar_form input[type="datetime-local"] {
+    display: block;
+    width: 90%;
+    padding: 8px;
+    margin-bottom: 20px;
+    margin-left: 13px;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+    font-size: 16px;
+}
+
+.calendar_form button {
+    display: block;
+    margin-top: 20px;
+    margin-left: 13px;
+    background-color: #ff7f50;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.calendar_form button:hover {
+    background-color: #ffe8e8;
+}
+
+.calendar_form button:focus {
+    outline: none;
+}

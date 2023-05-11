@@ -1,5 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {fetchSignUp} from "../../../shared/api/auth";
+import "../styles/header.css"
 
 function SignUp({onClose}) {
     const emailRef = useRef()
@@ -21,19 +22,21 @@ function SignUp({onClose}) {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form className="registration_form" onSubmit={handleSubmit}>
             <input
+                className="input_fields"
                 type="text"
                 ref={emailRef}
                 placeholder="Email"
             />
             <input
+                className="input_fields"
                 type="text"
                 ref={passwordRef}
                 placeholder="Password"
             />
-            <button type="submit">Sign up</button>
-            {error && <div style={{color: 'red'}}>{error}</div>}
+            <button className="submit_btn" type="submit">Sign up</button>
+            {error && <div className="error">{error}</div>}
         </form>
     );
 }

@@ -27,20 +27,22 @@ function SignIn({onClose, setToken}) {
 
 
     return (
-        <form onSubmit={handleSubmit}>
-            <div>Confirm your account</div>
+        <form className="registration_form" onSubmit={handleSubmit}>
             <input
+                className="input_fields"
                 type="text"
                 ref={emailRef}
                 placeholder="Email"
             />
             <input
+                className="input_fields"
                 type="text"
                 ref={passwordRef}
                 placeholder="Password"
             />
-            <button type="submit">Sign in</button>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
+            <button className="submit_btn" type="submit">Sign in</button>
+            <div className="confirm">Confirm your account</div>
+            {error && <div className="error">{error}</div>}
         </form>
     );
 }
