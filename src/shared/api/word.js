@@ -30,6 +30,7 @@ export const updateWord = async (data) => {
 
 export const getWords = async () => {
     const token = getCookieValue("token")
+
     const request = fetch(`${apiBase}/get-words`, {
         method: "POST",
         body: JSON.stringify({token}),

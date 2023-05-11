@@ -1,0 +1,88 @@
+.body_form {
+    background-image: url("../../../../public/light.png");
+    height: 100vh;
+    width: 100%;
+}
+
+.btn_group {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.button_group {
+    padding: 10px;
+    background-color: #ff7f50;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.button_group:hover {
+    background-color: #ffe8e8;
+}
+
+.button_get {
+    padding: 10px;
+    background-color: #a8a8a8;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.button_get:hover {
+    background-color: #ffe8e8;
+}
+
+.button_ul {
+    list-style: none;
+    margin-top: 60px;
+}
+
+.p {
+    position: absolute;
+    color: #a8a8a8;
+    margin-top: 50px;
+    text-align: center;
+}
+
+.empty {
+    margin-top: 60px;
+    color: #a8a8a8;
+}
+
+.page-container {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+}
+
+.content-item {
+    display: block;
+    color: #a8a8a8;
+}
+
+.content-container {
+
+}
+
+.page {
+    cursor: pointer;
+    color: #ff7f50;
+    margin-right: 5px;
+}
+
+.page:hover {
+    background-color: #ffffff;
+}
+
+.page_active {
+    color: #ff0000;
+}
+
+
