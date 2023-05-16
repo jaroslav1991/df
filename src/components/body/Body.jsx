@@ -98,13 +98,14 @@ const Body = ({token}) => {
 
                 {words && (openForm ? "openGet" : "openGetByPeriod") && (
                     <ul className="button_ul">
+                        <Pagination onChange={showSlicePage} pageAmount={dataWords.length / PAGE_SIZE}/>
+
                         {words.map(word => (
                             <li key={word.id}>
                                 <button className="button_get"
                                         onClick={() => setWord(word)}>{word.word} - {word.translate}</button>
                             </li>
                         ))}
-                        <Pagination onChange={showSlicePage} pageAmount={dataWords.length / PAGE_SIZE}/>
                     </ul>
 
                 )}

@@ -1,5 +1,13 @@
+* {
+    font-size: 1em;
+}
+
 .body_form {
     background-image: url("../../../../public/light.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: #111;
+    background-position-x: center;
     height: 100vh;
     width: 100%;
 }
@@ -74,7 +82,7 @@
 .page {
     cursor: pointer;
     color: #ff7f50;
-    margin-right: 5px;
+    margin-right: 15px;
 }
 
 .page:hover {
