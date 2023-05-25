@@ -4,6 +4,7 @@ import {getWords} from "../../shared/api/word";
 import ModalCreateFn from "./components/ModalCreate";
 import ModalGetByPeriodFn from "./components/ModalGetByPeriod";
 import "./styles/body.css"
+import ModalTrainingFn from "./components/ModalMenuTraining";
 
 const PAGE_SIZE = 10
 const PAGE_START = 0
@@ -85,6 +86,10 @@ const Body = ({token}) => {
         setOpenForm("openGetByPeriod")
     }
 
+    const handlerMenuTraining = async () => {
+        setOpenForm("openMenuTraining")
+    }
+
     return (
         <div className="body_form">
             {token && <>
@@ -94,6 +99,7 @@ const Body = ({token}) => {
                     <button className="button_group" onClick={handleGetWords}>Get All Words</button>
                     <button className="button_group" onClick={handleGetWordsByPeriod}>Get words By period</button>
                     <button className="button_group" onClick={handleCreateWord}>Add Word</button>
+                    <button className="button_group" onClick={handlerMenuTraining}>Training</button>
                 </div>
 
                 {words && (openForm ? "openGet" : "openGetByPeriod") && (
@@ -119,6 +125,7 @@ const Body = ({token}) => {
                     />}
                 {openForm === "openCreate" &&
                     <ModalCreateFn onClose={() => setOpenForm(null)} onRefreshList={handleGetWords}/>}
+                {openForm === "openMenuTraining" && <ModalTrainingFn onClose={() => setOpenForm(null)}/>}
             </>}
             {!token && <p className="p">Lox, quickly register on this ass site</p>}
         </div>

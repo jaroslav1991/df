@@ -64,6 +64,58 @@ export const getWordsByPeriod = async (data) => {
     return await processFetch(request)
 }
 
+export const createResultOfTraining = async (data) => {
+    const token = getCookieValue("token")
+    const _data = {
+        ...data,
+        token
+    }
+    const request = fetch(`${apiBase}/training`, {
+        method: "POST",
+        body: JSON.stringify(_data)
+    });
+    return await processFetch(request)
+}
+
+export const getStatistic = async (data) => {
+    const token = getCookieValue("token")
+    const _data = {
+        ...data,
+        token
+    }
+    const request = fetch(`${apiBase}/get-statistic`, {
+        method:"POST",
+        body: JSON.stringify(_data)
+    });
+    return await processFetch(request)
+}
+
+export const createStatistic = async (data) => {
+    const token = getCookieValue("token")
+    const _data = {
+        ...data,
+        token
+    }
+    const request = fetch(`${apiBase}/statistic`, {
+        method: "POST",
+        body: JSON.stringify(_data)
+    });
+    return await processFetch(request)
+}
+
+// export const getTraining = async (data) => {
+//     const token = getCookieValue("token")
+//     const _data = {
+//         ...data,
+//         token
+//     }
+//     const request = fetch(`${apiBase}/get-training`, {
+//         method: "POST",
+//         body: JSON.stringify(_data)
+//     });
+//     return await processFetch(request)
+// }
+
 export const processFetch = async (request) => {
     try {
         const response = await request;

@@ -93,4 +93,19 @@
     color: #ff0000;
 }
 
+.btn_training_list {
+    width: 120px;
+}
+
+.input_list {
+    width: 120px;
+    margin-right: 15px;
+}
+
+.words_not_found {
+    text-align: center;
+    color: black;
+    margin-top: 10px;
+    font-size: 20px;
+}
 
