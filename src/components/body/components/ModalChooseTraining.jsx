@@ -1,7 +1,7 @@
 import {useRef} from "react";
 import {getWordsByPeriod} from "../../../shared/api/word";
 
-const ModalChooseTrainingFn = ({onClose2, setWords, setList}) => {
+const ModalChooseTrainingFn = ({onClose2, setWords, setList, onTest}) => {
     const firstRef = useRef()
     const secondRef = useRef()
 
@@ -20,10 +20,12 @@ const ModalChooseTrainingFn = ({onClose2, setWords, setList}) => {
             setWords(response.data.words);
             onClose2();
             setList(true);
+            onTest();
         } else {
             setWords(null);
             onClose2();
             setList(true)
+            onTest();
         }
         console.log("data", response.data)
     }

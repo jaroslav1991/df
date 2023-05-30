@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import ModalUpdateOrDelete from "./components/ModalUpdateOrDelete";
-import {getWords} from "../../shared/api/word";
+import {createResultOfTraining, createStatistic, getStatistic, getWords} from "../../shared/api/word";
 import ModalCreateFn from "./components/ModalCreate";
 import ModalGetByPeriodFn from "./components/ModalGetByPeriod";
 import "./styles/body.css"
@@ -16,6 +16,11 @@ const Body = ({token}) => {
     const [openForm, setOpenForm] = useState("")
     const [page, setPage] = useState(PAGE_START);
     const [dataWords, setDataWords] = useState(0)
+    const [listWords, setListWords] = useState(false)
+    const [wordsFromUser, setWordsFromUser] = useState({correct_answers: {words: []}, wrong_answers: {words: []}})
+    const [trainingWords, setTrainingWords] = useState(null)
+
+    const translateRef = useRef([])
 
 
     useEffect(() => {
@@ -67,7 +72,7 @@ const Body = ({token}) => {
             <div className="page-container">
                 {arr.map((value) => (
                     <div
-                        className={`page ${value === page ? "page_active": ""}`}
+                        className={`page ${value === page ? "page_active" : ""}`}
                         key={value}
                         onClick={() => onPageClick(value)}
                     >
@@ -77,6 +82,62 @@ const Body = ({token}) => {
             </div>
         );
     };
+
+    const onGetTrainingInfo = async () => {
+        const dataCreateTraining = {
+            words: {
+                words: words.map((word) => ({
+                    id: word.id,
+                    word: word.word,
+                    translate: word.translate
+                }))
+            },
+            answers: {
+                words: words.map((word) => ({
+                    id: word.id,
+                    word: word.word,
+                    translate: translateRef.current[word.id].value
+                }))
+            }
+        }
+        const responseCreateTraining = await createResultOfTraining(dataCreateTraining);
+        if (responseCreateTraining.status === "success") {
+            console.log("success:", responseCreateTraining.data.id)
+        } else {
+            console.log("bad response:", responseCreateTraining.status)
+        }
+        const dataGetStatistic = {
+            training_id: responseCreateTraining.data.id
+        }
+        const responseGetStatistic = await getStatistic(dataGetStatistic)
+        if (responseGetStatistic.status === "success") {
+            setWordsFromUser(responseGetStatistic.data)
+            console.log(responseGetStatistic.data)
+            console.log(responseGetStatistic.data.correct_answers.words)
+            console.log(responseGetStatistic.data.wrong_answers.words)
+        } else {
+            console.log("something wrong")
+        }
+
+        const dataForStatistic = {
+            training_id: responseCreateTraining.data.id,
+            correct_answers: {
+                words: responseGetStatistic.data.correct_answers.words
+            },
+            wrong_answers: {
+                words: responseGetStatistic.data.wrong_answers.words
+            }
+        }
+        const responseCreateStatistic = await createStatistic(dataForStatistic)
+        if (responseCreateStatistic.status === "success") {
+            console.log(responseCreateStatistic.data.id)
+        } else {
+            console.log("something wrong with create statistic")
+        }
+
+    }
+
+    console.log(trainingWords)
 
     const handleCreateWord = async () => {
         setOpenForm("openCreate")
@@ -88,6 +149,10 @@ const Body = ({token}) => {
 
     const handlerMenuTraining = async () => {
         setOpenForm("openMenuTraining")
+    }
+
+    const handlerOnTraining = () => {
+        setOpenForm("openTraining")
     }
 
     return (
@@ -120,12 +185,46 @@ const Body = ({token}) => {
                 {word && <ModalUpdateOrDelete onClose={() => setWord(null)} onRefreshList={handleGetWords} word={word}
                                               onOpen={() => setOpenForm(null)}/>}
                 {openForm === "openGetByPeriod" &&
-                    <ModalGetByPeriodFn onClose={() => setOpenForm(null)} setWords={setWords} getSlice={getSlice} setPage={() => setPage}
-                        setDataWords={setDataWords}
+                    <ModalGetByPeriodFn onClose={() => setOpenForm(null)} setWords={setWords} getSlice={getSlice}
+                                        setPage={() => setPage}
+                                        setDataWords={setDataWords}
                     />}
                 {openForm === "openCreate" &&
                     <ModalCreateFn onClose={() => setOpenForm(null)} onRefreshList={handleGetWords}/>}
-                {openForm === "openMenuTraining" && <ModalTrainingFn onClose={() => setOpenForm(null)}/>}
+
+                {openForm === "openMenuTraining" &&
+                    <ModalTrainingFn onForm={handlerOnTraining} setListWords={setListWords} setWords={setTrainingWords}
+                                     onClose={() => setOpenForm(null)}/>}
+                {openForm === "openTraining" && trainingWords && listWords && (
+                    <ul className="button_ul">
+                        {trainingWords.map((word) => (
+                            <li key={word.id}>
+                                <input className="input_list" value={word.word} readOnly/>
+                                <input className="input_list" ref={(el) => translateRef.current[word.id] = el} placeholder="translate"/>
+                            </li>
+                        ))}
+                        <button className="btn_training" onClick={onGetTrainingInfo}>Ready</button>
+                        {wordsFromUser && (<ul className="button_ul">
+                            {wordsFromUser.correct_answers.words && wordsFromUser.correct_answers.words.map((word, index) => (
+                                <li key={index}>
+                                    <label>Correct words</label>
+                                    <button>{word.word} -- {word.translate}</button>
+                                </li>
+                            ))}
+
+                            {wordsFromUser.wrong_answers.words && wordsFromUser.wrong_answers.words.map((word, index) => (
+                                <li key={index}>
+                                    <label>Wrong words</label>
+                                    <button>{word.word} -- {word.translate}</button>
+                                </li>
+                            ))}
+                        </ul>)}
+                    </ul>
+                )}
+                {!trainingWords && listWords && (
+                    <div className="words_not_found">Words doesn't find</div>
+                )}
+
             </>}
             {!token && <p className="p">Lox, quickly register on this ass site</p>}
         </div>
