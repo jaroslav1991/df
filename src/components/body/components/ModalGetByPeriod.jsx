@@ -21,7 +21,7 @@ const ModalGetByPeriodFn =({onClose, setWords, setDataWords}) => {
             setDataWords(response.data.words)
             onClose();
         } else {
-            setWords(null)
+            setWords(null);
             onClose();
         }
         console.log("data", response.data)

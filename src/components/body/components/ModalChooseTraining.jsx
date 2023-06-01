@@ -1,7 +1,7 @@
 import {useRef} from "react";
 import {getWordsByPeriod} from "../../../shared/api/word";
 
-const ModalChooseTrainingFn = ({onClose2, setWords, setList, onTest}) => {
+const ModalChooseTrainingFn = ({onClose2, setTrainingWords, setList, onTest, setTrainingDataWords}) => {
     const firstRef = useRef()
     const secondRef = useRef()
 
@@ -17,17 +17,18 @@ const ModalChooseTrainingFn = ({onClose2, setWords, setList, onTest}) => {
         };
         const response = await getWordsByPeriod(data);
         if (response.status === 'success' && response.data.words) {
-            setWords(response.data.words);
+            setTrainingWords(response.data.words);
+            setTrainingDataWords(response.data.words);
             onClose2();
             setList(true);
             onTest();
         } else {
-            setWords(null);
+            setTrainingWords(null);
+            setTrainingDataWords(0);
             onClose2();
             setList(true)
             onTest();
         }
-        console.log("data", response.data)
     }
 
     return (

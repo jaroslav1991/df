@@ -2,7 +2,7 @@ import ModalChooseTraining from "./ModalChooseTraining";
 import {useState} from "react";
 
 
-const ModalTrainingFn = ({onClose, setListWords, setWords, onForm}) => {
+const ModalTrainingFn = ({onClose, setListWords, setTrainingWords, onForm, setTrainingDataWords}) => {
     const [openForm, setOpenForm] = useState(null)
 
     const clickWord = () => {
@@ -16,7 +16,8 @@ const ModalTrainingFn = ({onClose, setListWords, setWords, onForm}) => {
                 <button className="btn_training">Training with translate</button>
                 <button className="btn_training" onClick={onClose}>Close</button>
                 {openForm === "openWordTraining" &&
-                    <ModalChooseTraining onClick={onClose} onClose2={() => setOpenForm(null)} setWords={setWords}
+                    <ModalChooseTraining onClick={onClose} onClose2={() => setOpenForm(null)} setTrainingWords={setTrainingWords}
+                                         setTrainingDataWords={setTrainingDataWords}
                                          setList={setListWords} onTest={onForm}/>}
 
             </div>
